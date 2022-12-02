@@ -21,13 +21,13 @@ def get_book_details(id):
     header = str(soup.find('body').find('table').find('h1'))
     book_name = (header.split('::', maxsplit=1))[0].strip('<h1>').strip()
     book_author = (header.split('title="', maxsplit=1)[1]).split(' - ', maxsplit=1)[0]
-    return book_author, sanitize_filename(book_name)
+    return book_author, f'{id}.{sanitize_filename(book_name)}'
 
 
-def download_txt(url, file_name, folder_name='library'):
-    Path(folder_name).mkdir(parents=True, exist_ok=True)
+def download_txt(url, file_name, folder='library'):
+    Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url)
     response.raise_for_status()
-    with open(Path(f'{folder_name}/{file_name}.txt'), 'wb') as file:
+    with open(Path(f'{folder}/{sanitize_filename(file_name)}.txt'), 'wb') as file:
         file.write(response.content)
-    return Path(f'{folder_name}/{file_name}.txt')
+    return Path(f'{folder}/{sanitize_filename(file_name)}.txt')
