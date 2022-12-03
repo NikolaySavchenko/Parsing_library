@@ -1,6 +1,7 @@
 from utils import download_txt
 from utils import check_for_redirect
 from utils import get_book_details
+from utils import download_cover
 
 
 def main():
@@ -9,7 +10,9 @@ def main():
     for id in range(1, 11):
         url_temp = f'https://tululu.org/txt.php?id={id}'
         if check_for_redirect(url_temp):
-            print(download_txt(url_temp, get_book_details(id)[1]))
+            book_detail = get_book_details(id)
+            print(download_txt(url_temp, book_detail[1]))
+            print(download_cover(id))
 
 
 if __name__ == '__main__':
