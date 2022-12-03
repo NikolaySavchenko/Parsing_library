@@ -29,8 +29,10 @@ def get_book_details(id):
     for comment in book_comments_html:
         temp = ((str(comment).split('span'))[1].replace(' class="black">', '')).replace('</', '')
         book_comments.append(temp)
-    return (book_author, f'{id}.{sanitize_filename(book_name)}',
-            f'https://tululu.org/{book_cover}', book_comments)
+    book_genre = (str(soup.find_all(class_="d_book")[1]).split('title="')[1]).split(' - перейти')[0]
+    # return (book_author, f'{id}.{sanitize_filename(book_name)}',
+    #         f'https://tululu.org/{book_cover}', book_comments)
+    return book_genre
 
 
 def download_txt(url, file_name, folder='library'):
@@ -53,3 +55,5 @@ def download_cover(id, folder='library/image'):
     with open(Path(f'{folder}/{cover_name}'), 'wb') as file:
         file.write(response.content)
     return Path(f'{folder}/{cover_name}')
+
+print(get_book_details(5))
