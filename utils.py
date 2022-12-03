@@ -24,7 +24,13 @@ def get_book_details(id):
     book_name = (header.split('::', maxsplit=1))[0].strip('<h1>').strip()
     book_author = (header.split('title="', maxsplit=1)[1]).split(' - ', maxsplit=1)[0]
     book_cover = soup.find('body').find('table').find(class_='bookimage').find('img')['src']
-    return book_author, f'{id}.{sanitize_filename(book_name)}', f'https://tululu.org/{book_cover}'
+    book_comments_html = soup.find_all(class_='texts')
+    book_comments = []
+    for comment in book_comments_html:
+        temp = ((str(comment).split('span'))[1].replace(' class="black">', '')).replace('</', '')
+        book_comments.append(temp)
+    return (book_author, f'{id}.{sanitize_filename(book_name)}',
+            f'https://tululu.org/{book_cover}', book_comments)
 
 
 def download_txt(url, file_name, folder='library'):
