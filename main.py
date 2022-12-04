@@ -5,7 +5,12 @@ from utils import download_cover
 import argparse
 
 
-def main(start_id, end_id):
+def main():
+    parser = argparse.ArgumentParser('Input start ID, stop ID')
+    parser.add_argument('start_id', nargs='?', default=1)
+    parser.add_argument('end_id', nargs='?', default=1)
+    start_id = int(parser.parse_args().start_id)
+    end_id = int(parser.parse_args().end_id)
     for book_id in range(start_id, end_id + 1):
         url_temp = f'https://tululu.org/txt.php?id={book_id}'
         if check_for_redirect(url_temp):
@@ -16,9 +21,4 @@ def main(start_id, end_id):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser('Input start ID, stop ID')
-    parser.add_argument('start_id', nargs='?', default=1)
-    parser.add_argument('end_id', nargs='?', default=1)
-    start_id = int(parser.parse_args().start_id)
-    end_id = int(parser.parse_args().end_id)
-    main(start_id, end_id)
+    main()
