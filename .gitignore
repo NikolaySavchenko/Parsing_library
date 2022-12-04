@@ -3,4 +3,3 @@ __pycache__/
 .env
 venv/
 library/
-bs4_tutorial.py
