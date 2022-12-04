@@ -6,13 +6,13 @@ import argparse
 
 
 def main(start_id, end_id):
-    for id in range(start_id, end_id+1):
-        url_temp = f'https://tululu.org/txt.php?id={id}'
+    for book_id in range(start_id, end_id + 1):
+        url_temp = f'https://tululu.org/txt.php?id={book_id}'
         if check_for_redirect(url_temp):
-            book_detail = get_book_details(id)
+            book_detail = get_book_details(book_id)
             print(book_detail[1], book_detail[4], sep='\n')
             download_txt(url_temp, book_detail[1])
-            download_cover(id)
+            download_cover(book_detail[2])
 
 
 if __name__ == '__main__':

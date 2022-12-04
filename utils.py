@@ -15,8 +15,8 @@ def check_for_redirect(url):
         return False
 
 
-def get_book_details(id):
-    url = f'https://tululu.org/b{id}/'
+def get_book_details(book_id):
+    url = f'https://tululu.org/b{book_id}/'
     response = requests.get(url)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, 'lxml')
@@ -30,7 +30,7 @@ def get_book_details(id):
         temp = ((str(comment).split('span'))[1].replace(' class="black">', '')).replace('</', '')
         book_comments.append(temp)
     book_genre = (str(soup.find_all(class_="d_book")[1]).split('title="')[1]).split(' - перейти')[0]
-    return (book_author, f'{id}.{sanitize_filename(book_name)}',
+    return (book_author, f'{book_id}.{sanitize_filename(book_name)}',
             f'https://tululu.org/{book_cover}', book_comments, book_genre)
 
 
@@ -43,16 +43,14 @@ def download_txt(url, file_name, folder='library'):
     return Path(f'{folder}/{sanitize_filename(file_name)}.txt')
 
 
-def download_cover(id, folder='library/image'):
+def download_cover(url, folder='library/image'):
     Path(folder).mkdir(parents=True, exist_ok=True)
-    url = unquote(get_book_details(id)[2])
+    url = unquote(url)
     response = requests.get(url)
     response.raise_for_status()
-    cover_name = (urlsplit(url).path).split('/')[-1]
+    cover_name = urlsplit(url).path.split('/')[-1]
     if 'nopic' in cover_name:
         return 'Обложка отсутствует'
     with open(Path(f'{folder}/{cover_name}'), 'wb') as file:
         file.write(response.content)
     return Path(f'{folder}/{cover_name}')
-
-# print(get_book_details(5))
