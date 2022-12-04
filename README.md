@@ -24,4 +24,4 @@ Where `start_id` - book ID on [Tululu](https://tululu.org/) library from which t
 
 ## Project Goals
 
-This code was written for educational purposes as part of an online course for web developers at dvmn.org.
+This code was written for educational purposes as part of an online course for web developers at [dvmn.org](https://dvmn.org/).
