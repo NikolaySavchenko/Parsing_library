@@ -6,12 +6,11 @@ import argparse
 
 
 def main():
-    parser = argparse.ArgumentParser('Input start ID, stop ID')
-    parser.add_argument('start_id', nargs='?', default=1)
-    parser.add_argument('end_id', nargs='?', default=1)
-    start_id = int(parser.parse_args().start_id)
-    end_id = int(parser.parse_args().end_id)
-    for book_id in range(start_id, end_id + 1):
+    parser = argparse.ArgumentParser('Input start ID, end ID')
+    parser.add_argument('start_id', nargs='?', type=int, default=1)
+    parser.add_argument('end_id', nargs='?', type=int, default=1)
+    book_id = parser.parse_args()
+    for book_id in range(book_id.start_id, book_id.end_id + 1):
         url_temp = f'https://tululu.org/txt.php?id={book_id}'
         if check_for_redirect(url_temp):
             book_detail = get_book_details(book_id)
