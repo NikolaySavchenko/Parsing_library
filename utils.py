@@ -6,8 +6,8 @@ from urllib.parse import unquote
 from urllib.parse import urlsplit
 
 
-def check_for_redirect(response_url):
-    if response_url == 'https://tululu.org/':
+def check_for_redirect(response):
+    if response.history != []:
         return True
     else:
         return False
@@ -17,7 +17,7 @@ def get_book_details(book_id):
     url = f'https://tululu.org/b{book_id}/'
     response = requests.get(url)
     response.raise_for_status()
-    if check_for_redirect(response.url):
+    if check_for_redirect(response):
         return f'Книга с id {book_id} отсутствует!'
     soup = BeautifulSoup(response.text, 'lxml')
     header = str(soup.find('body').find('table').find('h1'))
@@ -38,7 +38,7 @@ def download_txt(url, payload, file_name, folder='library'):
     Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url, params=payload)
     response.raise_for_status()
-    if check_for_redirect(response.url):
+    if check_for_redirect(response):
         return f'Книга с id {payload["id"]} отсутствует!'
     with open(Path(f'{folder}/{sanitize_filename(file_name)}.txt'), 'wb') as file:
         file.write(response.content)
