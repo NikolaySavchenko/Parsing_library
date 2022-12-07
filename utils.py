@@ -20,18 +20,14 @@ def get_book_details(book_id):
     if check_for_redirect(response):
         return f'Книга с id {book_id} отсутствует!'
     soup = BeautifulSoup(response.text, 'lxml')
-    header = str(soup.find('body').find('table').find('h1'))
-    book_name = (header.split('::', maxsplit=1))[0].strip('<h1>').strip()
-    book_author = (header.split('title="', maxsplit=1)[1]).split(' - ', maxsplit=1)[0]
+    book_title, book_author = soup.find('table').find('h1').text.split('::')
     book_cover = soup.find('body').find('table').find(class_='bookimage').find('img')['src']
-    book_comments_html = soup.find_all(class_='texts')
-    book_comments = []
-    for comment in book_comments_html:
-        comment_text = ((str(comment).split('span'))[1].replace(' class="black">', '')).replace('</', '')
-        book_comments.append(comment_text)
-    book_genre = (str(soup.find_all(class_="d_book")[1]).split('title="')[1]).split(' - перейти')[0]
-    return (book_author, f'{book_id}.{sanitize_filename(book_name)}',
-            f'https://tululu.org/{book_cover}', book_comments, book_genre)
+    comments = soup.find_all(class_='texts')
+    book_comments = [comment.find('span', class_='black').text for comment in comments]
+    genres_string = soup.find('span', class_='d_book').find_all('a')
+    book_genres = [genre.text for genre in genres_string]
+    return (book_author, f'{book_id}.{sanitize_filename(book_title)}',
+            f'https://tululu.org/{book_cover}', book_comments, book_genres)
 
 
 def download_txt(url, payload, file_name, folder='library'):
