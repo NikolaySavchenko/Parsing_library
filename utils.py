@@ -26,6 +26,7 @@ def get_book_details(book_id):
     book_comments = [comment.find('span', class_='black').text for comment in comments]
     genres_string = soup.find('span', class_='d_book').find_all('a')
     book_genres = [genre.text for genre in genres_string]
+
     return {
         'Author': book_author,
         'Title': f'{book_id}.{sanitize_filename(book_title)}',
@@ -41,7 +42,8 @@ def download_txt(url, payload, file_name, folder='library'):
     response.raise_for_status()
     if check_for_redirect(response):
         return f'Книга с id {payload["id"]} отсутствует!'
-    with open(Path(f'{folder}/{sanitize_filename(file_name)}.txt'), 'wb') as file:
+    file_path = Path(f'{folder}/{sanitize_filename(file_name)}.txt')
+    with open(file_path, 'wb') as file:
         file.write(response.content)
     return Path(f'{folder}/{sanitize_filename(file_name)}.txt')
 
@@ -54,6 +56,7 @@ def download_cover(url, folder='library/image'):
     cover_name = urlsplit(url).path.split('/')[-1]
     if 'nopic' in cover_name:
         return 'Обложка отсутствует'
-    with open(Path(f'{folder}/{cover_name}'), 'wb') as file:
+    file_path = Path(f'{folder}/{cover_name}')
+    with open(file_path, 'wb') as file:
         file.write(response.content)
     return Path(f'{folder}/{cover_name}')
