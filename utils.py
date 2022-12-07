@@ -26,8 +26,13 @@ def get_book_details(book_id):
     book_comments = [comment.find('span', class_='black').text for comment in comments]
     genres_string = soup.find('span', class_='d_book').find_all('a')
     book_genres = [genre.text for genre in genres_string]
-    return (book_author, f'{book_id}.{sanitize_filename(book_title)}',
-            f'https://tululu.org/{book_cover}', book_comments, book_genres)
+    return {
+        'Author': book_author,
+        'Title': f'{book_id}.{sanitize_filename(book_title)}',
+        'Cover URL': f'https://tululu.org/{book_cover}',
+        'All comments': book_comments,
+        'Genres': book_genres
+            }
 
 
 def download_txt(url, payload, file_name, folder='library'):

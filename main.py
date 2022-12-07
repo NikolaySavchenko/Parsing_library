@@ -14,9 +14,9 @@ def main():
         payload = {'id': book_id}
         book_detail = get_book_details(book_id)
         if len(book_detail) == 5:
-            download_txt(url, payload, book_detail[1])
-            download_cover(book_detail[2])
-            print(book_detail[1], book_detail[4], sep='\n')
+            download_txt(url, payload, book_detail['Title'])
+            download_cover(book_detail['Cover URL'])
+            print(book_detail['Title'], *book_detail['Genres'], sep='\n')
         else:
             print(book_detail)
 
