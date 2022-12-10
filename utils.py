@@ -7,7 +7,7 @@ from urllib.parse import urlsplit
 
 
 def check_for_redirect(response):
-    if response.history != []:
+    if response.history:
         return True
     else:
         return False
@@ -55,12 +55,10 @@ def download_txt(url, payload, file_name, folder='library'):
     Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url, params=payload)
     response.raise_for_status()
-    if check_for_redirect(response):
-        return f'Книга с id {payload["id"]} отсутствует!'
     file_path = Path(f'{folder}/{sanitize_filename(file_name)}.txt')
     with open(file_path, 'wb') as file:
         file.write(response.content)
-    return Path(f'{folder}/{sanitize_filename(file_name)}.txt')
+    return file_path
 
 
 def download_cover(url, folder='library/image'):
@@ -74,4 +72,4 @@ def download_cover(url, folder='library/image'):
     file_path = Path(f'{folder}/{cover_name}')
     with open(file_path, 'wb') as file:
         file.write(response.content)
-    return Path(f'{folder}/{cover_name}')
+    return file_path
