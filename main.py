@@ -1,6 +1,12 @@
 from utils import download_txt
 from utils import get_book_details
 from utils import download_cover
+from utils import get_autor
+from utils import get_title
+from utils import get_cover
+from utils import get_comments
+from utils import get_genres
+
 from time import sleep
 import argparse
 import requests
@@ -17,12 +23,11 @@ def main():
         payload = {'id': book_id}
         try:
             book_detail = get_book_details(book_id)
-            if len(book_detail) == 5:
-                download_txt(url, payload, book_detail['Title'])
-                download_cover(book_detail['Cover URL'])
-                print(book_detail['Title'], *book_detail['Genres'], sep='\n')
-            else:
-                print(book_detail)
+            if book_detail:
+                book_title = get_title(book_detail, book_id)
+                download_txt(url, payload, book_title)
+                download_cover(get_cover(book_detail))
+                print(book_title, *get_genres(book_detail), sep='\n')
             book_id += 1
         except requests.exceptions.HTTPError as error:
             print(f'Ошибка сайта {error}')
