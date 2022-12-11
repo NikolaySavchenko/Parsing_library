@@ -1,10 +1,8 @@
 from utils import download_txt
 from utils import get_book_details
 from utils import download_cover
-from utils import get_autor
 from utils import get_title
 from utils import get_cover
-from utils import get_comments
 from utils import get_genres
 
 from time import sleep
