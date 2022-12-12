@@ -8,18 +8,14 @@ from urllib.parse import urlsplit
 
 def check_for_redirect(response):
     if response.history:
-        return True
-    else:
-        return False
+        raise requests.exceptions.HTTPError
 
 
 def get_book_details(book_id):
     url = f'https://tululu.org/b{book_id}/'
     response = requests.get(url)
     response.raise_for_status()
-    if check_for_redirect(response):
-        print(f'Книга с id {book_id} отсутствует!')
-        return False
+    check_for_redirect(response)
     soup = BeautifulSoup(response.text, 'lxml')
     return soup
 
@@ -55,9 +51,6 @@ def download_txt(url, payload, file_name, folder='library'):
     Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url, params=payload)
     response.raise_for_status()
-    if check_for_redirect(response):
-        print(f'Книга недоступна для скачивания!')
-        return
     file_path = Path(f'{folder}/{sanitize_filename(file_name)}.txt')
     with open(file_path, 'wb') as file:
         file.write(response.content)

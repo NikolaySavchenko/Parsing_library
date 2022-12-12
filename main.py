@@ -21,14 +21,13 @@ def main():
         payload = {'id': book_id}
         try:
             book_detail = get_book_details(book_id)
-            if book_detail:
-                book_title = get_title(book_detail, book_id)
-                download_txt(url, payload, book_title)
-                download_cover(get_cover(book_detail))
-                print(book_title, *get_genres(book_detail), sep='\n')
+            book_title = get_title(book_detail, book_id)
+            download_txt(url, payload, book_title)
+            download_cover(get_cover(book_detail))
+            print(book_title, *get_genres(book_detail), sep='\n')
             book_id += 1
         except requests.exceptions.HTTPError as error:
-            print(f'Ошибка сайта {error}')
+            print(f'Ошибка сайта при id {book_id}: {error}')
             book_id += 1
             continue
         except requests.exceptions.ConnectionError as error1:
