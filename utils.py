@@ -22,28 +22,28 @@ def get_book_details(book_id):
 
 def get_autor(soup_content):
     book_author = soup_content.find('table').find('h1').text.split('::')[1]
-    return book_author
+    return book_author.strip()
 
 
 def get_title(soup_content, book_id):
     book_title = soup_content.find('table').find('h1').text.split('::')[0]
-    return f'{book_id}.{sanitize_filename(book_title)}'
+    return f'{book_id}.{sanitize_filename(book_title.strip())}'
 
 
 def get_cover(soup_content):
     book_cover = soup_content.find('body').find('table').find(class_='bookimage').find('img')['src']
-    return f'https://tululu.org/{book_cover}'
+    return f'https://tululu.org/{book_cover.strip()}'
 
 
 def get_comments(soup_content):
     comments = soup_content.find_all(class_='texts')
-    book_comments = [comment.find('span', class_='black').text for comment in comments]
+    book_comments = [(comment.find('span', class_='black').text).strip() for comment in comments]
     return book_comments
 
 
 def get_genres(soup_content):
     genres = soup_content.find('span', class_='d_book').find_all('a')
-    genres = [genre.text for genre in genres]
+    genres = [(genre.text).strip() for genre in genres]
     return genres
 
 
