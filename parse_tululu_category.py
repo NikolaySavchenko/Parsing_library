@@ -30,7 +30,6 @@ def main():
     for i in range(1, 11):
         try:
             book_ids = get_id(i)
-            # about_book = {}
             for book_id in book_ids:
                 download_url = 'https://tululu.org/txt.php'
                 payload = {'id': book_id}

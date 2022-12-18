@@ -31,19 +31,17 @@ def get_title(soup_content, book_id):
 
 
 def get_cover(soup_content):
-    book_cover = soup_content.find('body').find('table').find(class_='bookimage').find('img')['src']
-    return f'https://tululu.org/{book_cover.strip()}'
+    book_cover = soup_content.select_one('table .bookimage img')
+    return f'https://tululu.org{book_cover.get("src")}'
 
 
 def get_comments(soup_content):
-    comments = soup_content.find_all(class_='texts')
-    book_comments = [(comment.find('span', class_='black').text).strip() for comment in comments]
+    book_comments = [(comment.text).strip() for comment in soup_content.select('.texts .black')]
     return book_comments
 
 
 def get_genres(soup_content):
-    genres = soup_content.find('span', class_='d_book').find_all('a')
-    genres = [(genre.text).strip() for genre in genres]
+    genres = [genre.text for genre in soup_content.select('span.d_book a')]
     return genres
 
 
