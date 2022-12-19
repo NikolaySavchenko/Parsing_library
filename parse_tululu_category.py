@@ -27,12 +27,16 @@ def get_id(page):
 
 
 def main():
-    parser = argparse.ArgumentParser('Input start page, end page')
+    parser = argparse.ArgumentParser('Input start page, end page and other settings')
     parser.add_argument('start_page', nargs='?', type=int, default=1)
     parser.add_argument('end_page', nargs='?', type=int, default=702)
-    pages = parser.parse_args()
+    parser.add_argument('--dest_folder', type=bool, default=False)
+    parser.add_argument('--skip_imgs', type=bool, default=False)
+    parser.add_argument('--skip_txt', type=bool, default=False)
+    parser.add_argument('--json_path', type=bool, default=False)
+    settings = parser.parse_args()
     book_count = 0
-    for i in range(pages.start_page, pages.end_page):
+    for i in range(settings.start_page, settings.end_page):
         try:
             book_ids = get_id(i)
             for book_id in book_ids:
@@ -41,8 +45,10 @@ def main():
                 try:
                     book_detail = get_book_details(book_id)
                     book_title = get_title(book_detail, book_id)
-                    book_path = download_txt(download_url, payload, book_title)
-                    book_cover = download_cover(get_cover(book_detail))
+                    if not settings.skip_txt:
+                        book_path = download_txt(download_url, payload, book_title)
+                    if not settings.skip_imgs:
+                        book_cover = download_cover(get_cover(book_detail))
                     about_book_json = {
                         'title': book_title,
                         'author': get_autor(book_detail),
@@ -51,10 +57,15 @@ def main():
                         'comments': get_comments(book_detail),
                         'genres': get_genres(book_detail)
                     }
-                    with open("about_books.json", "a", encoding='utf8') as my_file:
+                    with open("library/about_books.json", "a", encoding='utf8') as my_file:
                         json.dump(about_book_json, my_file, ensure_ascii=False)
+                    if settings.json_path:
+                        print('Результаты добавлены в "/library/about_books.json"')
                     book_count += 1
-                    print(f'Обработка страницы {i}, скачано книг {book_count}')
+                    if settings.dest_folder:
+                        print(f'Cкачано книг {book_count}, результаты в каталоге "/library/"')
+                    else:
+                        print(f'Обработка страницы {i}, скачано книг {book_count}')
                 except requests.exceptions.HTTPError as error:
                     print(f'Ошибка сайта на id {book_id}: {error}')
                     continue
