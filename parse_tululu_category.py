@@ -47,8 +47,12 @@ def main():
                     book_title = get_title(book_detail, book_id)
                     if not settings.skip_txt:
                         book_path = download_txt(download_url, payload, book_title)
+                    else:
+                        book_path = ''
                     if not settings.skip_imgs:
                         book_cover = download_cover(get_cover(book_detail))
+                    else:
+                        book_cover = ''
                     about_book_json = {
                         'title': book_title,
                         'author': get_autor(book_detail),
