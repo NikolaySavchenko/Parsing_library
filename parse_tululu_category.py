@@ -34,12 +34,10 @@ def get_max_page():
     return max_page
 
 
-
-
 def main():
     parser = argparse.ArgumentParser('Input start page, end page and other settings')
     parser.add_argument('start_page', nargs='?', type=int, default=1)
-    parser.add_argument('end_page', nargs='?', type=int, default=(get_max_page()+1))
+    parser.add_argument('end_page', nargs='?', type=int, default=(get_max_page() + 1))
     parser.add_argument('--dest_folder', type=bool, default=False)
     parser.add_argument('--skip_imgs', type=bool, default=False)
     parser.add_argument('--skip_txt', type=bool, default=False)
@@ -63,7 +61,7 @@ def main():
                         book_cover = download_cover(get_cover(book_detail))
                     else:
                         book_cover = ''
-                    about_book_json = {
+                    about_book = {
                         'title': book_title,
                         'author': get_title_author(book_detail, book_id)['author'],
                         'book_path': f'{book_path}',
@@ -72,7 +70,7 @@ def main():
                         'genres': get_genres(book_detail)
                     }
                     with open("library/about_books.json", "a", encoding='utf8') as my_file:
-                        json.dump(about_book_json, my_file, ensure_ascii=False)
+                        json.dump(about_book, my_file, ensure_ascii=False)
                     if settings.json_path:
                         print('Результаты добавлены в "/library/about_books.json"')
                     book_count += 1
