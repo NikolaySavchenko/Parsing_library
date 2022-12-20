@@ -25,10 +25,22 @@ def get_id(page):
     return list(book_ids)
 
 
+def get_max_page():
+    url = 'https://tululu.org/l55/'
+    response = requests.get(url)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, 'lxml')
+    pages = soup.select('.center a')
+    max_page = int(re.sub('/|l55', '', pages[-1]['href']))
+    return max_page
+
+
+
+
 def main():
     parser = argparse.ArgumentParser('Input start page, end page and other settings')
     parser.add_argument('start_page', nargs='?', type=int, default=1)
-    parser.add_argument('end_page', nargs='?', type=int, default=702)
+    parser.add_argument('end_page', nargs='?', type=int, default=(get_max_page()+1))
     parser.add_argument('--dest_folder', type=bool, default=False)
     parser.add_argument('--skip_imgs', type=bool, default=False)
     parser.add_argument('--skip_txt', type=bool, default=False)
