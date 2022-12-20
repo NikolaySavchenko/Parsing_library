@@ -14,7 +14,7 @@ from utils import get_comments
 from utils import get_autor
 
 
-def get_id(page):
+def get_book_ids(page):
     url = f'https://tululu.org/l55/{page}'
     response = requests.get(url)
     response.raise_for_status()
@@ -49,7 +49,7 @@ def main():
     book_count = 0
     for page in range(settings.start_page, settings.end_page):
         try:
-            book_ids = get_id(page)
+            book_ids = get_book_ids(page)
             for book_id in book_ids:
                 download_url = 'https://tululu.org/txt.php'
                 payload = {'id': book_id}
