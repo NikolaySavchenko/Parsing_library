@@ -20,10 +20,9 @@ def get_id(page):
     response.raise_for_status()
     check_for_redirect(response)
     soup = BeautifulSoup(response.text, 'lxml')
-    books = soup.find_all(class_='d_book')
-    book_hrefs = [book.find('a')['href'] for book in books]
-    book_ids = [int(re.sub('/|b', '', href)) for href in book_hrefs]
-    return book_ids
+    books = soup.select('.d_book a[href^="/b"]')
+    book_ids = {int(re.sub('/|b', '', book['href'])) for book in books}
+    return list(book_ids)
 
 
 def main():
