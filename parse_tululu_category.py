@@ -35,9 +35,9 @@ def main():
     parser.add_argument('--json_path', type=bool, default=False)
     settings = parser.parse_args()
     book_count = 0
-    for i in range(settings.start_page, settings.end_page):
+    for page in range(settings.start_page, settings.end_page):
         try:
-            book_ids = get_id(i)
+            book_ids = get_id(page)
             for book_id in book_ids:
                 download_url = 'https://tululu.org/txt.php'
                 payload = {'id': book_id}
@@ -68,12 +68,12 @@ def main():
                     if settings.dest_folder:
                         print(f'Cкачано книг {book_count}, результаты в каталоге "/library/"')
                     else:
-                        print(f'Обработка страницы {i}, скачано книг {book_count}')
+                        print(f'Обработка страницы {page}, скачано книг {book_count}')
                 except requests.exceptions.HTTPError as error:
                     print(f'Ошибка сайта на id {book_id}: {error}')
                     continue
         except requests.exceptions.HTTPError as error:
-            print(f'Ошибка сайта на странице {i}: {error}')
+            print(f'Ошибка сайта на странице {page}: {error}')
             continue
 
 
