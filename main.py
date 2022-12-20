@@ -1,7 +1,7 @@
 from utils import download_txt
 from utils import get_book_details
 from utils import download_cover
-from utils import get_title
+from utils import get_title_author
 from utils import get_cover
 from utils import get_genres
 
@@ -21,7 +21,7 @@ def main():
         payload = {'id': book_id}
         try:
             book_detail = get_book_details(book_id)
-            book_title = get_title(book_detail, book_id)
+            book_title = get_title_author(book_detail, book_id)['title']
             download_txt(url, payload, book_title)
             download_cover(get_cover(book_detail))
             print(book_title, *get_genres(book_detail), sep='\n')

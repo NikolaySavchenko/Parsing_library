@@ -20,14 +20,13 @@ def get_book_details(book_id):
     return soup
 
 
-def get_autor(soup_content):
-    book_author = soup_content.find('table').find('h1').text.split('::')[1]
-    return book_author.strip()
-
-
-def get_title(soup_content, book_id):
+def get_title_author(soup_content, book_id):
     book_title = soup_content.find('table').find('h1').text.split('::')[0]
-    return f'{book_id}.{sanitize_filename(book_title.strip())}'
+    book_author = soup_content.find('table').find('h1').text.split('::')[1]
+    return {
+        'title': f'{book_id}.{sanitize_filename(book_title.strip())}',
+        'author': book_author.strip()
+    }
 
 
 def get_cover(soup_content):

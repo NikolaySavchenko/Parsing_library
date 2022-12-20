@@ -7,11 +7,10 @@ from utils import check_for_redirect
 from utils import download_txt
 from utils import get_book_details
 from utils import download_cover
-from utils import get_title
+from utils import get_title_author
 from utils import get_cover
 from utils import get_genres
 from utils import get_comments
-from utils import get_autor
 
 
 def get_book_ids(page):
@@ -55,7 +54,7 @@ def main():
                 payload = {'id': book_id}
                 try:
                     book_detail = get_book_details(book_id)
-                    book_title = get_title(book_detail, book_id)
+                    book_title = get_title_author(book_detail, book_id)['title']
                     if not settings.skip_txt:
                         book_path = download_txt(download_url, payload, book_title)
                     else:
@@ -66,7 +65,7 @@ def main():
                         book_cover = ''
                     about_book_json = {
                         'title': book_title,
-                        'author': get_autor(book_detail),
+                        'author': get_title_author(book_detail, book_id)['author'],
                         'book_path': f'{book_path}',
                         'image': f'{book_cover}',
                         'comments': get_comments(book_detail),
