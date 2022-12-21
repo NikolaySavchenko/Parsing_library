@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from pathvalidate import sanitize_filename
 from urllib.parse import unquote
 from urllib.parse import urlsplit
+from urllib.parse import urljoin
 
 
 def check_for_redirect(response):
@@ -31,7 +32,7 @@ def get_title_author(soup_content, book_id):
 
 def get_cover(soup_content):
     book_cover = soup_content.select_one('table .bookimage img')
-    return f'https://tululu.org{book_cover.get("src")}'
+    return urljoin('https://tululu.org', book_cover.get("src"))
 
 
 def get_comments(soup_content):
