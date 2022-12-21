@@ -44,7 +44,7 @@ def get_genres(soup_content):
     return genres
 
 
-def download_txt(url, payload, file_name, folder='library'):
+def download_txt(url, payload, file_name, folder):
     Path(folder).mkdir(parents=True, exist_ok=True)
     response = requests.get(url, params=payload)
     response.raise_for_status()
@@ -55,15 +55,15 @@ def download_txt(url, payload, file_name, folder='library'):
     return file_path
 
 
-def download_cover(url, folder='library/image'):
-    Path(folder).mkdir(parents=True, exist_ok=True)
+def download_cover(url, folder):
+    Path(f'{folder}/image').mkdir(parents=True, exist_ok=True)
     url = unquote(url)
     response = requests.get(url)
     response.raise_for_status()
     cover_name = urlsplit(url).path.split('/')[-1]
     if 'nopic' in cover_name:
         return 'Обложка отсутствует'
-    file_path = Path(f'{folder}/{cover_name}')
+    file_path = Path(f'{folder}/image/{cover_name}')
     with open(file_path, 'wb') as file:
         file.write(response.content)
     return file_path

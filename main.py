@@ -23,7 +23,7 @@ def main():
             book_detail = get_book_details(book_id)
             book_title = get_title_author(book_detail, book_id)['title']
             download_txt(url, payload, book_title)
-            download_cover(get_cover(book_detail))
+            download_cover(get_cover(book_detail), '/library')
             print(book_title, *get_genres(book_detail), sep='\n')
             book_id += 1
         except requests.exceptions.HTTPError as error:
