@@ -45,6 +45,7 @@ def main():
     parser.add_argument('--json_path', type=str, default='library')
     settings = parser.parse_args()
     book_count = 0
+    about_books = []
     for page in range(settings.start_page, settings.end_page):
         try:
             book_ids = get_book_ids(page)
@@ -72,9 +73,7 @@ def main():
                         'comments': get_comments(book_detail),
                         'genres': get_genres(book_detail)
                     }
-                    Path(settings.json_path).mkdir(parents=True, exist_ok=True)
-                    with open(f"{settings.json_path}/about_books.json", "a", encoding='utf8') as my_file:
-                        json.dump(about_book, my_file, ensure_ascii=False)
+                    about_books.append(about_book)
                     book_count += 1
                     print(f'Обработка страницы {page}, cкачано книг {book_count}, '
                           f'результаты в каталоге {settings.dest_folder}')
@@ -85,6 +84,11 @@ def main():
         except requests.exceptions.HTTPError as error:
             print(f'Ошибка сайта на странице {page}: {error}')
             continue
+        except KeyboardInterrupt:
+            break
+    Path(settings.json_path).mkdir(parents=True, exist_ok=True)
+    with open(f"{settings.json_path}/about_books.json", "w", encoding='utf8') as my_file:
+        json.dump(about_books, my_file, ensure_ascii=False)
 
 
 if __name__ == '__main__':
