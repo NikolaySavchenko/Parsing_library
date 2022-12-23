@@ -22,8 +22,8 @@ def get_book_details(book_id):
 
 
 def get_title_author(soup_content, book_id):
-    book_title = soup_content.find('table').find('h1').text.split('::')[0]
-    book_author = soup_content.find('table').find('h1').text.split('::')[1]
+    book_title = soup_content.select_one('table h1').text.split('::')[0]
+    book_author = soup_content.select_one('table h1').text.split('::')[1]
     return {
         'title': f'{book_id}.{sanitize_filename(book_title.strip())}',
         'author': book_author.strip()

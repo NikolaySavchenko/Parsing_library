@@ -87,8 +87,8 @@ def main():
         except KeyboardInterrupt:
             break
     Path(settings.json_path).mkdir(parents=True, exist_ok=True)
-    with open(f"{settings.json_path}/about_books.json", "w", encoding='utf8') as my_file:
-        json.dump(about_books, my_file, ensure_ascii=False)
+    with open(f"{settings.json_path}/about_books.json", "w", encoding='utf8') as books:
+        json.dump(about_books, books, ensure_ascii=False)
 
 
 if __name__ == '__main__':
