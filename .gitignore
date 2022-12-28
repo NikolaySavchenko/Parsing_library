@@ -4,3 +4,5 @@ __pycache__/
 venv/
 library/
 *.json
+*.gif
+index.html
