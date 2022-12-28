@@ -1,7 +1,5 @@
 import json
-import urllib
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 env = Environment(
@@ -30,7 +28,7 @@ for about_book in about_books:
     books.append(book)
 
 rendered_page = template.render(books=books)
-print(books[18]['image'])
+
 with open('index.html', 'w', encoding="utf8") as file:
     file.write(rendered_page)
 
