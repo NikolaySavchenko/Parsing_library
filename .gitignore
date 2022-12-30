@@ -5,4 +5,5 @@ venv/
 library/
 *.json
 *.gif
-index.html
+*.html
+!template.html
