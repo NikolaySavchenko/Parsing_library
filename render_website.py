@@ -1,4 +1,6 @@
 import json
+from more_itertools import chunked
+from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 
@@ -31,11 +33,13 @@ def rebuild():
             }
         books.append(book)
 
-    rendered_page = template.render(books=books)
+    books_chunked = list(chunked(books, 20))
 
-    with open('index.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
-    print("Site rebuilt")
+    for page, books_chunk in enumerate(books_chunked):
+        rendered_page = template.render(books=books_chunk)
+        Path('pages').mkdir(parents=True, exist_ok=True)
+        with open(f'pages/index{page}.html', 'w', encoding="utf8") as file:
+            file.write(rendered_page)
 
 
 rebuild()

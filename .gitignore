@@ -7,3 +7,4 @@ library/
 *.gif
 *.html
 !template.html
+/pages/
