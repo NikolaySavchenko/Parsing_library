@@ -22,14 +22,16 @@ def rebuild():
                 'image': about_book['image'].replace('\\', '/'),
                 'title': about_book['title'],
                 'author': about_book['author'],
-                'book_path': about_book['book_path'].replace('\\', '/')
+                'book_path': about_book['book_path'].replace('\\', '/'),
+                'genres': ', '.join(about_book['genres'])
             }
         else:
             book = {
                 'image': 'nopic.gif',
                 'title': about_book['title'],
                 'author': about_book['author'],
-                'book_path': about_book['book_path'].replace('\\', '/')
+                'book_path': about_book['book_path'].replace('\\', '/'),
+                'genres': ', '.join(about_book['genres'])
             }
         books.append(book)
 
