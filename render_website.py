@@ -34,9 +34,15 @@ def rebuild():
         books.append(book)
 
     books_chunked = list(chunked(books, 20))
+    pages = []
+    for page, books_chunk in enumerate(books_chunked, 1):
+        pages.append({
+            'page_number': page,
+        })
 
-    for page, books_chunk in enumerate(books_chunked):
-        rendered_page = template.render(books=books_chunk)
+    for page, books_chunk in enumerate(books_chunked, 1):
+
+        rendered_page = template.render(books=books_chunk, sheets=pages, page=page, max_page=pages[-1]['page_number'])
         Path('pages').mkdir(parents=True, exist_ok=True)
         with open(f'pages/index{page}.html', 'w', encoding="utf8") as file:
             file.write(rendered_page)

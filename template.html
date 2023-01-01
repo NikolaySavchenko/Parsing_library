@@ -13,6 +13,28 @@
 
   <body>
     <h1> Каталог книг </h1>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if page-1 %}
+        <li class="page-item"><a class="page-link" href="index{{page-1}}.html">Назад</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="#">Предыдущая</a></li>
+        {% endif %}
+        {% for sheet in sheets %}
+        {% if sheet.page_number-page %}
+        <li class="page-item"><a class="page-link" href="index{{sheet.page_number}}.html">{{sheet.page_number}}</a></li>
+        {% else %}
+        <li class="page-item active"><a class="page-link"
+                                        href="index{{sheet.page_number}}.html">{{sheet.page_number}}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if max_page-page %}
+        <li class="page-item"><a class="page-link" href="index{{page+1}}.html">Вперед</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="#">Следующая</a></li>
+        {% endif %}
+      </ul>
+    </nav>
     <div class="container">
     <div class="row">
     {% for book in books %}
