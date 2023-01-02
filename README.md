@@ -47,6 +47,7 @@ $ python '\parsing_library> python3 render_website.py
 ***Before starting, check that your books are collected in the `/.library/` catalog***
 ***
 After starting in catalog `/.pages/` you will see your library. Open any page in your browser.
+You can see the results of this repository at my [GitHub Pages](https://nikolaysavchenko.github.io/Parsing_library//pages/index1.html)
 
 ## Project Goals
 
