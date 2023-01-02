@@ -27,7 +27,7 @@ def rebuild():
             }
         else:
             book = {
-                'image': 'nopic.gif',
+                'image': 'static/nopic.gif',
                 'title': about_book['title'],
                 'author': about_book['author'],
                 'book_path': about_book['book_path'].replace('\\', '/'),
