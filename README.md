@@ -1,6 +1,7 @@
 # Parsing library
 
 It's connects to [Tululu](https://tululu.org/) library, fetch books and their cover and save it.
+After the downloaded books are organized into a library, which can be viewed and read in any browser.
 
 ## How to install
 
@@ -36,6 +37,16 @@ Where `start_page` - book on page [Tululu](https://tululu.org/l55/) library ganr
 `--skip_txt` - if it's True, book text will NOT be downloaded.
 
 `--json_path` - if it's True, you will see json folder path with the book description.
+
+### To organized books into a library:
+```
+$ python '\parsing_library> python3 render_website.py
+```
+***
+#### Important! 
+***Before starting, check that your books are collected in the `/.library/` catalog***
+***
+After starting in catalog `/.pages/` you will see your library. Open any page in your browser.
 
 ## Project Goals
 

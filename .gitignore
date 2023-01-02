@@ -2,9 +2,3 @@ __pycache__/
 .idea/
 .env
 venv/
-library/
-*.json
-*.gif
-*.html
-!template.html
-/pages/

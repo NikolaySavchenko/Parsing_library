@@ -14,7 +14,7 @@
 
   <body>
     <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center mb-3 mt-5">
+      <ul class="pagination justify-content-center mb-4 mt-4">
         {% if page-1 %}
           <li class="page-item"><a class="page-link" href="index{{page-1}}.html">Назад</a></li>
         {% else %}
@@ -37,7 +37,7 @@
     <div class="container">
       <div class="row">
         {% for book in books %}
-          <div class="card mb-3" style="width: 440px;">
+          <div class="card mb-4" style="width: 440px;">
             <div class="row no-gutters">
               <div class="col-md-4">
                 <img src="../{{book.image}}" class="card-img" alt="Обложка книги">
