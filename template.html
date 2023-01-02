@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="icon" type="image/png" href="../static/favicon.png" sizes="16x16">
-    <link rel="stylesheet" href="../static/bootstrap.min.css" >
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
     <title>Каталог книг</title>
   </head>
 
@@ -16,46 +16,45 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center mb-3 mt-5">
         {% if page-1 %}
-        <li class="page-item"><a class="page-link" href="index{{page-1}}.html">Назад</a></li>
+          <li class="page-item"><a class="page-link" href="index{{page-1}}.html">Назад</a></li>
         {% else %}
-        <li class="page-item"><a class="page-link" href="#">Назад</a></li>
+          <li class="page-item"><a class="page-link" href="#">Назад</a></li>
         {% endif %}
         {% for sheet in sheets %}
-        {% if sheet.page_number-page %}
-        <li class="page-item"><a class="page-link" href="index{{sheet.page_number}}.html">{{sheet.page_number}}</a></li>
-        {% else %}
-        <li class="page-item active"><a class="page-link"
-                                        href="index{{sheet.page_number}}.html">{{sheet.page_number}}</a></li>
-        {% endif %}
+          {% if sheet.page_number-page %}
+            <li class="page-item"><a class="page-link" href="index{{sheet.page_number}}.html">{{sheet.page_number}}</a></li>
+          {% else %}
+            <li class="page-item active"><a class="page-link" href="index{{sheet.page_number}}.html">{{sheet.page_number}}</a></li>
+          {% endif %}
         {% endfor %}
         {% if max_page-page %}
-        <li class="page-item"><a class="page-link" href="index{{page+1}}.html">Вперед</a></li>
+          <li class="page-item"><a class="page-link" href="index{{page+1}}.html">Вперед</a></li>
         {% else %}
-        <li class="page-item"><a class="page-link" href="#">Вперед</a></li>
+          <li class="page-item"><a class="page-link" href="#">Вперед</a></li>
         {% endif %}
       </ul>
     </nav>
     <div class="container">
-    <div class="row">
-    {% for book in books %}
-    <div class="card mb-3" style="width: 440px;">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          <img src="../{{book.image}}" class="card-img" alt="Обложка книги">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{{book.title}}</h5>
-            <p class="card-text">{{book.author}}</p>
-            <p class="card-text">{{book.genres}}</p>
-            <a href="../{{book.book_path}}" target="_blank">Читать</a>
+      <div class="row">
+        {% for book in books %}
+          <div class="card mb-3" style="width: 440px;">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="../{{book.image}}" class="card-img" alt="Обложка книги">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{book.title}}</h5>
+                  <p class="card-text">{{book.author}}</p>
+                  <p class="card-text">{{book.genres}}</p>
+                  <a href="../{{book.book_path}}" target="_blank">Читать</a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        {% endfor %}
+        <div class="w-100"></div>
       </div>
-    </div>
-    {% endfor %}
-    <div class="w-100"></div>
-    </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
