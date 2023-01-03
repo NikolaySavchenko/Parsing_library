@@ -14,24 +14,24 @@ def rebuild(db_path):
     template = env.get_template('template.html')
 
     with open(db_path, "r", encoding='utf8') as books:
-        about_books = json.load(books)
+        books_description = json.load(books)
     books = []
-    for about_book in about_books:
-        if about_book['image'] != 'Обложка отсутствует':
+    for book_description in books_description:
+        if book_description['image'] != 'Обложка отсутствует':
             book = {
-                'image': about_book['image'].replace('\\', '/'),
-                'title': about_book['title'],
-                'author': about_book['author'],
-                'book_path': about_book['book_path'].replace('\\', '/'),
-                'genres': ', '.join(about_book['genres'])
+                'image': book_description['image'].replace('\\', '/'),
+                'title': book_description['title'],
+                'author': book_description['author'],
+                'book_path': book_description['book_path'].replace('\\', '/'),
+                'genres': ', '.join(book_description['genres'])
             }
         else:
             book = {
                 'image': 'static/nopic.gif',
-                'title': about_book['title'],
-                'author': about_book['author'],
-                'book_path': about_book['book_path'].replace('\\', '/'),
-                'genres': ', '.join(about_book['genres'])
+                'title': book_description['title'],
+                'author': book_description['author'],
+                'book_path': book_description['book_path'].replace('\\', '/'),
+                'genres': ', '.join(book_description['genres'])
             }
         books.append(book)
 
