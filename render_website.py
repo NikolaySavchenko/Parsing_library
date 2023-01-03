@@ -35,7 +35,8 @@ def rebuild(db_path):
             }
         books.append(book)
 
-    books_chunked = list(chunked(books, 20))
+    books_on_page = 20
+    books_chunked = list(chunked(books, books_on_page))
     pages = []
     for page, books_chunk in enumerate(books_chunked, 1):
         pages.append({
