@@ -35,7 +35,7 @@ def rebuild(db_path):
                 'genres': ', '.join(book_description['genres'])
             }
         books.append(book)
-    
+
     books_on_page = 20
     chunked_books = list(chunked(books, books_on_page))
     pages = []
