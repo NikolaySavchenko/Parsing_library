@@ -2,6 +2,7 @@ import json
 import argparse
 from more_itertools import chunked
 from pathlib import Path
+from urllib.parse import quote
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 
@@ -22,7 +23,7 @@ def rebuild(db_path):
                 'image': book_description['image'].replace('\\', '/'),
                 'title': book_description['title'],
                 'author': book_description['author'],
-                'book_path': book_description['book_path'].replace('\\', '/'),
+                'book_path': quote(book_description['book_path'].replace('\\', '/')),
                 'genres': ', '.join(book_description['genres'])
             }
         else:
@@ -30,11 +31,11 @@ def rebuild(db_path):
                 'image': 'static/nopic.gif',
                 'title': book_description['title'],
                 'author': book_description['author'],
-                'book_path': book_description['book_path'].replace('\\', '/'),
+                'book_path': quote(book_description['book_path'].replace('\\', '/')),
                 'genres': ', '.join(book_description['genres'])
             }
         books.append(book)
-
+    
     books_on_page = 20
     chunked_books = list(chunked(books, books_on_page))
     pages = []
