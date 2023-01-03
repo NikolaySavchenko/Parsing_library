@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 Example for command line:
 ```
-$ python '\parsing_library> python3 main.py start_id end_id 
+.\parsing_library> python main.py start_id end_id 
 ```
 
 Where `start_id` - book ID on [Tululu](https://tululu.org/) library from which the download will start.
@@ -24,7 +24,7 @@ Where `start_id` - book ID on [Tululu](https://tululu.org/) library from which t
 
 ### To download books in the Science Fiction genre only:
 ```
-$ python '\parsing_library> python3 parse_tululu_cathegory.py start_page end_page --dest_folder --skip_imgs --skip_txt --json_path
+.\parsing_library> python parse_tululu_cathegory.py start_page end_page --dest_folder --skip_imgs --skip_txt --json_path
 ```
 Where `start_page` - book on page [Tululu](https://tululu.org/l55/) library ganres Science Fiction from which the download will start.
 
@@ -40,7 +40,7 @@ Where `start_page` - book on page [Tululu](https://tululu.org/l55/) library ganr
 
 ### To organized books into a library:
 ```
-$ python '\parsing_library> python3 render_website.py db_path
+.\parsing_library> python render_website.py db_path
 ```
 Where `db_path` - path to the `json` file with the book description.
 The default is `"library/about_books.json"`
