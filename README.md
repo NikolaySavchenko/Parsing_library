@@ -40,12 +40,12 @@ Where `start_page` - book on page [Tululu](https://tululu.org/l55/) library ganr
 
 ### To organized books into a library:
 ```
-$ python '\parsing_library> python3 render_website.py
+$ python '\parsing_library> python3 render_website.py db_path
 ```
-***
-#### Important! 
-***Before starting, check that your books are collected in the `/.library/` catalog***
-***
+Where `db_path` - path to the `json` file with the book description.
+The default is `"library/about_books.json"`
+
+
 After starting in catalog `/.pages/` you will see your library. Open any page in your browser.
 You can see the results of this repository at my [GitHub Pages](https://nikolaysavchenko.github.io/Parsing_library//pages/index1.html)
 
