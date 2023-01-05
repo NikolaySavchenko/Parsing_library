@@ -38,11 +38,9 @@ def rebuild(db_path):
 
     books_on_page = 20
     chunked_books = list(chunked(books, books_on_page))
-    pages = []
-    for page, books_chunk in enumerate(chunked_books, 1):
-        pages.append({
-            'page_number': page,
-        })
+    pages = [{
+        'page_number': page,
+    } for page in range(1, (len(chunked_books) + 1))]
 
     for page, books_chunk in enumerate(chunked_books, 1):
         rendered_page = template.render(books=books_chunk, sheets=pages, page=page, max_page=pages[-1]['page_number'])
