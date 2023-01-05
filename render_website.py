@@ -54,10 +54,10 @@ if __name__ == '__main__':
     parser.add_argument('db_path', nargs='?', type=str, default="library/about_books.json")
     db_path = parser.parse_args().db_path
 
-    rebuild(db_path)
+rebuild(db_path)
 
-    server = Server()
+server = Server()
 
-    server.watch('template.html', rebuild)
+server.watch('template.html', rebuild)
 
-    server.serve(root='.')
+server.serve(root='.')
