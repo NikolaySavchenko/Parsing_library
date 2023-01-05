@@ -15,9 +15,9 @@ def rebuild(db_path):
     template = env.get_template('template.html')
 
     with open(db_path, "r", encoding='utf8') as books:
-        books_description = json.load(books)
+        book_descriptions = json.load(books)
     books = []
-    for book_description in books_description:
+    for book_description in book_descriptions:
         if book_description['image'] != 'Обложка отсутствует':
             book = {
                 'image': book_description['image'].replace('\\', '/'),
