@@ -55,9 +55,6 @@ if __name__ == '__main__':
     db_path = parser.parse_args().db_path
 
     rebuild(db_path)
-
     server = Server()
-
     server.watch('template.html', rebuild)
-
     server.serve(root='.')
