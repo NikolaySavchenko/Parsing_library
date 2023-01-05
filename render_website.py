@@ -58,8 +58,8 @@ if __name__ == '__main__':
 
     rebuild(db_path)
 
-    # server = Server()
+    server = Server()
 
-    # server.watch('template.html', rebuild)
+    server.watch('template.html', rebuild)
 
-    # server.serve(root='.')
+    server.serve(root='.')
